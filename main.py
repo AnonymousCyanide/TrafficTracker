@@ -14,6 +14,9 @@ while True:
     road = frame[340:720 ,500:800]
     # Marks moving vehicals as white
     mask = vehical_detector.apply(road)
+    # Filtering and keeping only the whitest whites (Ik kinda racist!)
+    _, mask = cv2.threshold(mask , 254 , 255 , cv2.THRESH_BINARY)
+    
     # vehical detection
     contours , _ = cv2.findContours(mask , cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     
@@ -21,7 +24,7 @@ while True:
         # Calculate are
         area = cv2.contourArea(cnt)
         if area>200:
-         cv2.drawContours(road , [cnt] , -1,(0 ,0 ,255), 1)
+         #cv2.drawContours(road , [cnt] , -1,(0 ,0 ,255), 1)
          x , y , w , h = cv2.boundingRect(cnt)
          cv2.rectangle(road,(x,y),(x+w , y+h),(0,255,0),3)   
 
