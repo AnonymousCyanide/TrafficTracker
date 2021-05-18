@@ -22,7 +22,8 @@ while True:
         area = cv2.contourArea(cnt)
         if area>200:
          cv2.drawContours(road , [cnt] , -1,(0 ,0 ,255), 1)
-        
+         x , y , w , h = cv2.boundingRect(cnt)
+         cv2.rectangle(road,(x,y),(x+w , y+h),(0,255,0),3)   
 
     # projects current image in media window named Frame
     cv2.imshow('Frame',frame)
